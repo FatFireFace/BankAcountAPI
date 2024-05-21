@@ -15,7 +15,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @NotBlank(message = "Не может быть пустым.")
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
     @NotBlank(message = "Не может быть пустым.")
     @Column(name = "password")
@@ -27,11 +27,11 @@ public class User {
     @Column
     private String patronymic;
     @NotBlank(message = "Не может быть пустым.")
-    @Column
+    @Column(unique = true)
     @Email(message = "Email should be valid")
     private String email;
     @NotBlank(message = "Не может быть пустым.")
-    @Column
+    @Column(unique = true)
     private String phone;
     @NotBlank(message = "Не может быть пустым.")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

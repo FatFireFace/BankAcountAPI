@@ -11,35 +11,35 @@
     </div>
     <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" th:field="*{username}" />
+        <input type="text" id="username" th:field="*{username}" required />
         <div th:if="${#fields.hasErrors('username')}" style="color: red;">
             <p th:errors="*{username}"></p>
         </div>
     </div>
     <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" th:field="*{password}" />
+        <input type="password" id="password" th:field="*{password}" required />
         <div th:if="${#fields.hasErrors('password')}" style="color: red;">
             <p th:errors="*{password}"></p>
         </div>
     </div>
     <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" />
+        <input type="email" id="email" th:field="*{email}" required />
         <div th:if="${#fields.hasErrors('email')}" style="color: red;">
             <p th:errors="*{email}"></p>
         </div>
     </div>
     <div>
         <label for="phone">Phone:</label>
-        <input type="text" id="phone" th:field="*{phone}" />
+        <input type="text" id="phone" th:field="*{phone}" required />
         <div th:if="${#fields.hasErrors('phone')}" style="color: red;">
             <p th:errors="*{phone}"></p>
         </div>
     </div>
     <div>
         <label for="initialSum">Initial Sum:</label>
-        <input type="text" id="initialSum" th:field="*{bankAccount.balance}" />
+        <input type="number" id="initialSum" th:field="*{bankAccount.balance}" required step="0.01" />
         <div th:if="${#fields.hasErrors('bankAccount.balance')}" style="color: red;">
             <p th:errors="*{bankAccount.balance}"></p>
         </div>

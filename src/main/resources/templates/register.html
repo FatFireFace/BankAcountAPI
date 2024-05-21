@@ -1,48 +1,87 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Register</title>
+    <title>Registration</title>
+    <script>
+        function addEmailField() {
+            var container = document.getElementById("email-container");
+            var input = document.createElement("input");
+            input.type = "email";
+            input.name = "emails[]";
+            input.required = true;
+            container.appendChild(input);
+        }
+
+        function addPhoneField() {
+            var container = document.getElementById("phone-container");
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = "phones[]";
+            input.required = true;
+            container.appendChild(input);
+        }
+
+        function removeLastEmailField() {
+            var container = document.getElementById("email-container");
+            if (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+            }
+        }
+
+        function removeLastPhoneField() {
+            var container = document.getElementById("phone-container");
+            if (container.children.length > 1) {
+                container.removeChild(container.lastChild);
+            }
+        }
+    </script>
 </head>
 <body>
-<h1>Register</h1>
-<form action="#" th:action="@{/register}" th:object="${user}" method="post">
-    <div th:if="${errorMessage}" style="color: red;">
-        <p th:text="${errorMessage}"></p>
-    </div>
+<h2>Registration Form</h2>
+<form th:action="@{/register}" th:object="${user}" method="post">
     <div>
         <label for="username">Username:</label>
-        <input type="text" id="username" th:field="*{username}" required />
-        <div th:if="${#fields.hasErrors('username')}" style="color: red;">
-            <p th:errors="*{username}"></p>
-        </div>
+        <input type="text" id="username" th:field="*{username}" required>
     </div>
     <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" th:field="*{password}" required />
-        <div th:if="${#fields.hasErrors('password')}" style="color: red;">
-            <p th:errors="*{password}"></p>
-        </div>
+        <input type="password" id="password" th:field="*{password}" required>
     </div>
     <div>
-        <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required />
-        <div th:if="${#fields.hasErrors('email')}" style="color: red;">
-            <p th:errors="*{email}"></p>
-        </div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required>
     </div>
     <div>
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" th:field="*{phone}" required />
-        <div th:if="${#fields.hasErrors('phone')}" style="color: red;">
-            <p th:errors="*{phone}"></p>
-        </div>
+        <label for="surname">Surname:</label>
+        <input type="text" id="surname" th:field="*{surname}" required>
     </div>
     <div>
-        <label for="initialSum">Initial Sum:</label>
-        <input type="number" id="initialSum" th:field="*{bankAccount.balance}" required step="0.01" />
-        <div th:if="${#fields.hasErrors('bankAccount.balance')}" style="color: red;">
-            <p th:errors="*{bankAccount.balance}"></p>
+        <label for="patronymic">Patronymic:</label>
+        <input type="text" id="patronymic" th:field="*{patronymic}" required>
+    </div>
+    <div>
+        <label for="birthDate">Birth Date:</label>
+        <input type="date" id="birthDate" th:field="*{birthDate}" required>
+    </div>
+    <div>
+        <label for="initialDeposit">Initial Deposit:</label>
+        <input type="number" id="initialDeposit" th:field="*{bankAccount.initialDeposit}" step="0.01" required>
+    </div>
+    <div>
+        <label>Emails:</label>
+        <div id="email-container">
+            <input type="email" name="emails[]" th:field="*{emails}" required>
         </div>
+        <button type="button" onclick="addEmailField()">Add Email</button>
+        <button type="button" onclick="removeLastEmailField()">Remove Last Email</button>
+    </div>
+    <div>
+        <label>Phones:</label>
+        <div id="phone-container">
+            <input type="text" name="phones[]" th:field="*{phones}" required>
+        </div>
+        <button type="button" onclick="addPhoneField()">Add Phone</button>
+        <button type="button" onclick="removeLastPhoneField()">Remove Last Phone</button>
     </div>
     <div>
         <button type="submit">Register</button>

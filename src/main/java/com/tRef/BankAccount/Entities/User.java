@@ -1,6 +1,8 @@
 package com.tRef.BankAccount.Entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
@@ -12,8 +14,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @NotBlank(message = "Не может быть пустым.")
     @Column(name = "username")
     private String username;
+    @NotBlank(message = "Не может быть пустым.")
     @Column(name = "password")
     private String password;
     @Column
@@ -22,10 +26,14 @@ public class User {
     private String surname;
     @Column
     private String patronymic;
+    @NotBlank(message = "Не может быть пустым.")
     @Column
+    @Email(message = "Email should be valid")
     private String email;
+    @NotBlank(message = "Не может быть пустым.")
     @Column
     private String phone;
+    @NotBlank(message = "Не может быть пустым.")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private final BankAccount bankAccount;

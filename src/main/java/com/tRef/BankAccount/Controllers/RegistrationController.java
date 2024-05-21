@@ -2,14 +2,18 @@ package com.tRef.BankAccount.Controllers;
 
 import com.tRef.BankAccount.Entities.User;
 import com.tRef.BankAccount.Services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
-public class RegistrationController {
+public class RegistrationController{
 
     @Autowired
     private UserService userService;
@@ -21,8 +25,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public String registerUser(User user) {
-        userService.saveUser(user);
+    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+        try {
+            userService.saveUser(user);
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "register";
+        }
         return "redirect:/login";
     }
 }

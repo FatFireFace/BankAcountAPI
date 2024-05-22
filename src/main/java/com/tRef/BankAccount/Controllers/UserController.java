@@ -2,6 +2,7 @@ package com.tRef.BankAccount.Controllers;
 
 import com.tRef.BankAccount.Entities.User;
 import com.tRef.BankAccount.Exceptions.*;
+import com.tRef.BankAccount.Services.CustomUserDetailsService;
 import com.tRef.BankAccount.Services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import java.util.UUID;
 public class UserController{
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @PostMapping
     public ResponseEntity<String> createUser(@Valid @RequestBody User user) {
@@ -76,7 +80,7 @@ public class UserController{
     public ResponseEntity<List<User>> searchUsers(@RequestParam(required = false) LocalDate birthDate,
                                                   @RequestParam(required = false) String phone,
                                                   @RequestParam(required = false) String name) {
-        List<User> users = userService.searchUsers(birthDate, phone, name);
+        List<User> users = customUserDetailsService.searchUsers(birthDate, phone, name);
         return ResponseEntity.ok(users);
     }
 

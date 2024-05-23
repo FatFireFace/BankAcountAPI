@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+src/main/resources/external-config.properties
 
 ### STS ###
 .apt_generated
@@ -18,8 +19,6 @@ target/
 *.iws
 *.iml
 *.ipr
-security
-HELP.md
 mvnw
 mvnw.cmd
 

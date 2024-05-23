@@ -1,0 +1,26 @@
+CREATE TABLE IF NOT EXISTS User (
+    id UUID PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    patronymic VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_emails (
+    user_id UUID REFERENCES User(id),
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS user_phones (
+    user_id UUID REFERENCES User(id),
+    phone VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS BankAccount (
+    id UUID PRIMARY KEY,
+    balance DECIMAL(19, 2) DEFAULT 0.00,
+    last_interest_added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    max_balance DECIMAL(19, 2) DEFAULT 0.00
+);

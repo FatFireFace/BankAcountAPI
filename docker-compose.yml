@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: bankaccount_db
+    environment:
+      POSTGRES_DB: bankaccount
+      POSTGRES_USER: bankuser
+      POSTGRES_PASSWORD: bankpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - bankaccount-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5051:80"
+    networks:
+      - bankaccount-network
+
+  app:
+    image: openjdk:17
+    container_name: bankaccount_app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/bankaccount
+      SPRING_DATASOURCE_USERNAME: bankuser
+      SPRING_DATASOURCE_PASSWORD: bankpassword
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - bankaccount-network
+
+volumes:
+  db-data:
+
+networks:
+  bankaccount-network:
+

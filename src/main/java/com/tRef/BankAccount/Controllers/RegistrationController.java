@@ -1,6 +1,7 @@
 package com.tRef.BankAccount.Controllers;
 
 import com.tRef.BankAccount.Entities.User;
+import com.tRef.BankAccount.Exceptions.UserRegistrationException;
 import com.tRef.BankAccount.Services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
 @RequestMapping("/users")
-public class RegistrationController{
+public class RegistrationController {
 
     @Autowired
     private UserService userService;
@@ -32,8 +32,8 @@ public class RegistrationController{
             return "register";
         }
         try {
-            userService.saveUser(user);
-        } catch (IllegalArgumentException e) {
+            userService.registerUser(user);
+        } catch (UserRegistrationException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register";
         }

@@ -35,7 +35,7 @@ public class UserController{
         } catch (UserNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (PhoneNumberAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body("Phone number already exists");
+            return ResponseEntity.badRequest().body("Номер уже зарегестрирован");
         }
     }
 
@@ -48,7 +48,7 @@ public class UserController{
         } catch (UserNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (LastPhoneNumberDeletionException e) {
-            return ResponseEntity.badRequest().body("Cannot delete last phone number");
+            return ResponseEntity.badRequest().body("Нельзя удалить последний номер");
         }
     }
 
@@ -60,7 +60,7 @@ public class UserController{
         } catch (UserNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (EmailAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body("Email already exists");
+            return ResponseEntity.badRequest().body("Адрес уже зарегестрирован");
         }
     }
 
@@ -72,7 +72,7 @@ public class UserController{
         } catch (UserNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (LastEmailDeletionException e) {
-            return ResponseEntity.badRequest().body("Cannot delete last email");
+            return ResponseEntity.badRequest().body("Нельзя удалить последний номер");
         }
     }
 
@@ -80,7 +80,7 @@ public class UserController{
     public ResponseEntity<List<User>> searchUsers(@RequestParam(required = false) LocalDate birthDate,
                                                   @RequestParam(required = false) String phone,
                                                   @RequestParam(required = false) String name) {
-        List<User> users = customUserDetailsService.searchUsers(birthDate, phone, name);
+        List<User> users = userService.searchUsers(birthDate, phone, name);
         return ResponseEntity.ok(users);
     }
 

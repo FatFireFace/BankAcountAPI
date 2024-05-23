@@ -1,7 +1,12 @@
 package com.tRef.BankAccount.Exceptions;
 
-public class UserNotFoundException extends RuntimeException {
+
+public class UserNotFoundException extends Exception {
     public UserNotFoundException() {
-        super("User not found");
+        super();
+    }
+
+    public UserNotFoundException(String message) {
+        super(message);
     }
 }

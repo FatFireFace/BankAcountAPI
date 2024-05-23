@@ -73,6 +73,10 @@ public class BankAccount {
         this.lastInterestAddedAt = lastInterestAddedAt;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
     public BigDecimal getMaxBalance(){
         return maxBalance;
     }
